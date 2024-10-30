@@ -1,6 +1,4 @@
 import { faker } from '@faker-js/faker';
-const Title = faker.lorem.word();
-const Description = faker.lorem.words();
 
 describe('Issue create', () => {
   beforeEach(() => {
@@ -103,8 +101,8 @@ describe('Issue create', () => {
     cy.get('[data-testid="board-list:backlog"]')
       .contains('Bug')
       .within(() => {
-        cy.get('[data-testid="avatar:Pickle Rick"]').should('be.visible');
-        cy.get('[data-testid="icon:story"]').should('be.visible');
+        cy.get('[data-testid="avatar:Lord Gaben"]').should('be.visible');
+        cy.get('[data-testid="icon:bug"]').should('be.visible');
       });
   });
 
@@ -115,14 +113,17 @@ describe('Issue create', () => {
     });
   }); 
 
-  it.only('Test Case 2: Random Data Plugin Issue Creation', () => {
+  it('Test Case 2: Random Data Plugin Issue Creation', () => {
+    const randomTitle = faker.lorem.word();
+    const randomDescription = faker.lorem.words();
+
     cy.get('[data-testid="modal:issue-create"]').within(() => {
-      cy.get('.ql-editor').type('Description');
-      cy.get('.ql-editor').should('have.text', 'Description');
-      cy.get('input[name="title"]').type('Title');
-      cy.get('input[name="title"]').should('have.value', 'Title');
+      cy.get('.ql-editor').type(randomDescription);
+      cy.get('.ql-editor').should('have.text', randomDescription);
+      cy.get('input[name="title"]').type(randomTitle);
+      cy.get('input[name="title"]').should('have.value', randomTitle);
       cy.get('[data-testid="select:type"]').should("contain", "Task");
-      cy.get('[data-testid="icon:task"]').should('be.visible');
+      cy.get('[data-testid="icon:task"]').scrollIntoView().should('be.visible');
       cy.get('[data-testid="select:priority"]').click();
       cy.get('[data-testid="select-option:Low"]').click();
       cy.get('[data-testid="select:reporterId"]').click();
@@ -144,7 +145,7 @@ describe('Issue create', () => {
           .contains('Title')
           .siblings()
           .within(() => {
-            cy.get('[data-testid="avatar:task"]').should('be.visible');
+            cy.get('[data-testid="icon:task"]').should('be.visible');
             cy.get('[data-testid="icon:arrow-down"]').should('be.visible');
           });
       });
@@ -152,8 +153,8 @@ describe('Issue create', () => {
     cy.get('[data-testid="board-list:backlog"]')
       .contains('Title')
       .within(() => {
-        cy.get('[data-testid="avatar:task"]').should('be.visible');
-        cy.get('[data-testid="arrow-down"]').should('be.visible');
+        cy.get('[data-testid="icon:task"]').should('be.visible');
+        cy.get('[data-testid="icon:arrow-down"]').should('be.visible');
       });
   });
 });
