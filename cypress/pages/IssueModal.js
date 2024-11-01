@@ -18,6 +18,7 @@ class IssueModal {
 
     getIssueModal() {
         return cy.get(this.issueModal);
+
     }
 
     getIssueDetailModal() {
@@ -70,7 +71,7 @@ class IssueModal {
     }
 
     ensureIssueIsVisibleOnBoard(issueTitle) {
-        cy.get(this.issueDetailModal).should('not.exist');
+        cy.get(this.issueDetailModal) .should('not.exist');
         cy.reload();
         cy.contains(issueTitle).should('be.visible');
     }
